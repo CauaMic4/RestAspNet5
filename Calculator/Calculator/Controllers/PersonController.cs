@@ -1,42 +1,77 @@
+using Calculator.Model;
+using Calculator.Services;
 using Microsoft.AspNetCore.Mvc;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Calculator.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class PersonControllerr : ControllerBase
+    [Route("api/[controller]")]
+    public class PersonController : ControllerBase
     {
 
 
-        private readonly ILogger<PersonControllerr> _logger;
+        private readonly ILogger<PersonController> _logger;
 
-        public PersonControllerr(ILogger<PersonControllerr> logger)
+        private IPersonService _personService;
+
+
+        public PersonController(ILogger<PersonController> logger, IPersonService personService)
         {
             _logger = logger;
+            _personService = personService;
         }
         #region GET
 
-        [HttpGet("sum/{firstnumber}/{secundNumber}")]
-        public IActionResult Get(string firstnumber, string secundNumber)
+        [HttpGet]
+        public IActionResult Get()
         {
-
-            return BadRequest("Invalid Input");
+            return Ok(_personService.FindAll());
         }
+        [HttpGet("{id}")]
+        public IActionResult Get(long id)
+        {
+            var person = _personService.FindById(id);
+            
+            if(person == null) 
+                return NotFound();
 
-        
-
+            return Ok(person);
+        }
         #endregion
 
         #region POST
+        [HttpPost]
+        public IActionResult Post([FromBody] Person person)
+        {
 
+            if (person == null)
+                return BadRequest();
+
+            return Ok(_personService.Create(person));
+        }
         #endregion
-        #region PUT
 
+        #region PUT
+        [HttpPut]
+        public IActionResult Put([FromBody] Person person)
+        {
+
+            if (person == null)
+                return BadRequest();
+
+            return Ok(_personService.Update(person));
+        }
         #endregion
 
         #region DELETE
+        [HttpDelete("{id}")]
+        public IActionResult Delete(long id)
+        {
+            _personService.Delete(id);
 
+            return NoContent();
+        }
         #endregion
 
         private bool IsDivisivel(string strNumber)
