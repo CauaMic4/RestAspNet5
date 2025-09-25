@@ -9,8 +9,6 @@ namespace Calculator.Controllers
     [Route("api/[controller]")]
     public class PersonController : ControllerBase
     {
-
-
         private readonly ILogger<PersonController> _logger;
 
         private IPersonService _personService;
