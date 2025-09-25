@@ -10,9 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 //Connect to SQL 
-var connection = builder.Configuration["MySqlConnection:MySqlConnectionString"];
-builder.Services.AddDbContext<MySqlContext>(options => options.UseMySql(connection, new MySqlServerVersion(new Version(9, 0, 0))));
+var connection = builder.Configuration.GetConnectionString("MySqlConnection");
 
+
+builder.Services.AddDbContext<MySqlContext>(options =>
+    options.UseMySql(connection, ServerVersion.AutoDetect(connection))
+);
 //Dependecy Injection
 
 builder.Services.AddScoped<IPersonService, PersonServiceImplementation>();
