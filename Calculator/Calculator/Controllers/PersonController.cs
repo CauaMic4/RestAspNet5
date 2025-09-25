@@ -21,6 +21,7 @@ namespace Calculator.Controllers
             _logger = logger;
             _personService = personService;
         }
+
         #region GET
 
         [HttpGet]
@@ -28,6 +29,7 @@ namespace Calculator.Controllers
         {
             return Ok(_personService.FindAll());
         }
+
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
@@ -74,49 +76,6 @@ namespace Calculator.Controllers
         }
         #endregion
 
-        private bool IsDivisivel(string strNumber)
-        {
-            double number;
-
-            bool isNumber = double.TryParse(
-                 strNumber,
-                 System.Globalization.NumberStyles.Any,
-                 System.Globalization.NumberFormatInfo.InvariantInfo,
-                 out number);
-
-            if (isNumber && number == 0)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool IsNumeric(string strNumber)
-        {
-
-            double number;
-
-            bool isNumber = double.TryParse(
-                strNumber,
-                System.Globalization.NumberStyles.Any,
-                System.Globalization.NumberFormatInfo.InvariantInfo,
-                out number);
-
-            return isNumber;
-        }
-        private decimal ConvertToDecimal(string strNumber)
-        {
-            decimal decimalValue;
-
-            if (decimal.TryParse(strNumber, out decimalValue))
-            {
-                return (int)decimalValue;
-            }
-
-            return 0;
-        }
-
-
+      
     }
 }

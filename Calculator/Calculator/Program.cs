@@ -1,11 +1,17 @@
+using Calculator.Model.Context;
 using Calculator.Services;
 using Calculator.Services.Implementations;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+//Connect to SQL 
+var connection = builder.Configuration["MySqlConnection:MySqlConnectionString"];
+builder.Services.AddDbContext<MySqlContext>(options => options.UseMySql(connection, new MySqlServerVersion(new Version(9, 0, 0))));
 
 //Dependecy Injection
 
