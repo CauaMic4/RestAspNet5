@@ -2,13 +2,13 @@
 using Calculator.Model.Context;
 using System;
 
-namespace Calculator.Services.Implementations
+namespace Calculator.Business.Implementations
 {
-    public class PersonServiceImplementation : IPersonService
+    public class PersonBusinessImplementation : IPersonBusiness
     {
         private MySqlContext _context;
 
-        public PersonServiceImplementation(MySqlContext context)
+        public PersonBusinessImplementation(MySqlContext context)
         {
             _context = context;
         }

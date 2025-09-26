@@ -1,6 +1,6 @@
 using Calculator.Model.Context;
-using Calculator.Services;
-using Calculator.Services.Implementations;
+using Calculator.Business;
+using Calculator.Business.Implementations;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +20,7 @@ builder.Services.AddDbContext<MySqlContext>(options =>
 builder.Services.AddApiVersioning();
 
 //Dependecy Injection
-builder.Services.AddScoped<IPersonService, PersonServiceImplementation>();
+builder.Services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
 
 var app = builder.Build();
 
