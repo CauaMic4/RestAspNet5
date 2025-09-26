@@ -12,14 +12,15 @@ builder.Services.AddControllers();
 //Connect to SQL 
 var connection = builder.Configuration.GetConnectionString("MySqlConnection");
 
-
 builder.Services.AddDbContext<MySqlContext>(options =>
     options.UseMySql(connection, ServerVersion.AutoDetect(connection))
 );
-//Dependecy Injection
 
+//Version Api
+builder.Services.AddApiVersioning();
+
+//Dependecy Injection
 builder.Services.AddScoped<IPersonService, PersonServiceImplementation>();
-//builder.Services.AddScoped<IPersonService, PersonServiceImplementation>();
 
 var app = builder.Build();
 

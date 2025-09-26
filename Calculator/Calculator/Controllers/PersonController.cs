@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Calculator.Model;
 using Calculator.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -5,8 +6,9 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Calculator.Controllers
 {
+    [ApiVersion("1")]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/v{version:apiVersion}")]
     public class PersonController : ControllerBase
     {
         private readonly ILogger<PersonController> _logger;
